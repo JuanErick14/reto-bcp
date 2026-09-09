@@ -7,4 +7,8 @@ Modificar el color y mensaje del banner principal puede aumentar el porcentaje d
 Desarrollar una landing en React que muestre dos variantes del banner principal (A/B), registre eventos clave en Google Tag Manager (GTM) y documente el proceso técnico de implementación.
 
 **Captura de implementación GTM:**
+
 ![Captura de pantalla de mi consola](image-1.png)
+
+**Enlace del proyecto:**
+Puedes ver la landing page en vivo aquí: https://JuanErick14.github.io/reto-bcp
