@@ -1,24 +1,32 @@
 import { useState, useEffect } from 'react';
 
 export default function Banner() {
-  // 1. Memoria del componente para guardar qué variante tocó
   const [variant, setVariant] = useState('');
 
-  // 2. Esta función se ejecuta solo una vez al cargar la página
   useEffect(() => {
-    // Math.random() genera un número entre 0 y 1. 
-    // Si es menor a 0.5 (50% de probabilidad), asigna 'A', sino 'B'.
     const randomChoice = Math.random() < 0.5 ? 'A' : 'B';
     setVariant(randomChoice);
   }, []);
 
-  // 3. Pausa visual: No mostramos nada milisegundos antes de que se decida la variante
   if (!variant) return null;
 
-  // 4. Diccionario de variables de diseño según el reto
   const isVariantA = variant === 'A';
-  const bgColor = isVariantA ? '#0043CE' : '#FF7A00'; // Azul vs Naranja
+  const bgColor = isVariantA ? '#0043CE' : '#FF7A00';
   const ctaText = isVariantA ? 'Solicita ahora' : 'Aplica ya';
+
+  // Función que captura el evento para GTM
+  const handleCTAClick = () => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'experiment_event',
+      experimentId: 'bcp_banner_test_v1',
+      action: 'click_cta',
+      variant: variant,
+      label: ctaText
+    });
+    
+    console.log("Evento enviado al dataLayer:", window.dataLayer);
+  };
 
   return (
     <section 
@@ -33,12 +41,17 @@ export default function Banner() {
       <p>Estás visualizando la variante de prueba: {variant}</p>
       
       <button 
+        onClick={handleCTAClick}
         style={{
           padding: '12px 24px',
           fontSize: '18px',
           fontWeight: 'bold',
           cursor: 'pointer',
-          marginTop: '15px'
+          marginTop: '15px',
+          border: 'none',
+          borderRadius: '4px',
+          backgroundColor: '#ffffff',
+          color: bgColor
         }}
       >
         {ctaText}
