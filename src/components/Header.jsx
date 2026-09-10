@@ -13,7 +13,7 @@ export default function Header() {
         
         {/* 1. Logo alineado a la izquierda */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-          <img src="/img/bcp-logo.png" alt="Logo BCP" style={{ height: '35px' }} />
+          <img src={`${import.meta.env.BASE_URL}img/bcp-logo.png`} alt="Logo BCP" style={{ height: '35px' }} />
         </div>
 
         {/* 2. Navegación perfectamente centrada */}

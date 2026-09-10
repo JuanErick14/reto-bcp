@@ -34,8 +34,8 @@ export default function Footer() {
           <p style={{ color: '#333', fontSize: '14px', marginBottom: '20px' }}>Escanea el QR con tu celular y conoce más</p>
           
           <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-end' }}>
-            <img src="/img/QR.jpg" alt="Código QR" style={{ width: '100px', height: '100px', borderRadius: '8px' }} />
-            <img src="/img/Celular-banca-movil-mobile.png" alt="App Banca Móvil BCP" style={{ height: '170px', objectFit: 'contain' }} />
+            <img src={`${import.meta.env.BASE_URL}img/QR.jpg`} alt="Código QR" style={{ width: '100px', height: '100px', borderRadius: '8px' }} />
+            <img src={`${import.meta.env.BASE_URL}img/Celular-banca-movil-mobile.png`} alt="App Banca Móvil BCP" style={{ height: '170px', objectFit: 'contain' }} />
           </div>
         </div>
       </div>
@@ -48,10 +48,10 @@ export default function Footer() {
         </p>
 
         <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap' }}>
-          <img src="/img/Sistema+de+denuncias.svg" alt="Sistema de Denuncias" style={{ height: '40px', objectFit: 'contain' }} />
-          <img src="/img/LDR.png" alt="Libro de Reclamaciones" style={{ height: '40px', objectFit: 'contain' }} />
-          <img src="/img/Compromiso.svg" alt="Compromiso Hablemos más simple" style={{ height: '40px', objectFit: 'contain' }} />
-          <img src="/img/Espacio+accesible.svg" alt="Espacio Accesible" style={{ height: '40px', objectFit: 'contain' }} />
+          <img src={`${import.meta.env.BASE_URL}img/Sistema+de+denuncias.svg`} alt="Sistema de Denuncias" style={{ height: '40px', objectFit: 'contain' }} />
+          <img src={`${import.meta.env.BASE_URL}img/LDR.png`} alt="Libro de Reclamaciones" style={{ height: '40px', objectFit: 'contain' }} />
+          <img src={`${import.meta.env.BASE_URL}img/Compromiso.svg`} alt="Compromiso Hablemos más simple" style={{ height: '40px', objectFit: 'contain' }} />
+          <img src={`${import.meta.env.BASE_URL}img/Espacio+accesible.svg`} alt="Espacio Accesible" style={{ height: '40px', objectFit: 'contain' }} />
         </div>
         
       </div>

@@ -11,7 +11,7 @@ export default function Benefits() {
         
         {/* Card 1: Visa Clásica */}
         <div className="benefit-card">
-          <img src="/img/Visa-Clasica.png" alt="Visa Clásica" className="benefit-img" />
+          <img src={`${import.meta.env.BASE_URL}img/Visa-Clasica.png`} alt="Visa Clásica" className="benefit-img" />
           <h4 className="benefit-card-title">Visa Clásica</h4>
           
           <ul className="benefit-list">
@@ -23,7 +23,7 @@ export default function Benefits() {
         
         {/* Card 2: Visa Light */}
         <div className="benefit-card">
-          <img src="/img/Visa-Light.png" alt="Visa Light" className="benefit-img" />
+          <img src={`${import.meta.env.BASE_URL}img/Visa-Light.png`} alt="Visa Light" className="benefit-img" />
           <h4 className="benefit-card-title">Visa Light</h4>
           
           <ul className="benefit-list">
@@ -35,7 +35,7 @@ export default function Benefits() {
         
         {/* Card 3: Visa IO */}
         <div className="benefit-card">
-          <img src="/img/Visa-IO.png" alt="Visa iO" className="benefit-img" />
+          <img src={`${import.meta.env.BASE_URL}img/Visa-IO.png`} alt="Visa iO" className="benefit-img" />
           <h4 className="benefit-card-title">Visa iO</h4>
           
           <ul className="benefit-list">
