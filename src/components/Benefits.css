@@ -1,0 +1,95 @@
+.benefits-section {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.benefits-title {
+  color: #002B6D;
+  margin-bottom: 40px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.benefits-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* En móviles se apilan naturalmente */
+}
+
+/* Fuerza una sola línea en pantallas de escritorio */
+@media (min-width: 1024px) {
+  .benefits-grid {
+    flex-wrap: nowrap; 
+  }
+}
+
+.benefit-card {
+  width: 350px;
+  padding: 30px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Transición solo para la sombra y el borde */
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.benefit-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 43, 109, 0.15);
+  border-color: #0043CE; 
+}
+
+.benefit-img {
+  width: 160px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  /* Preparamos la imagen para moverse suavemente */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Cuando el cursor toca la tarjeta, SOLO la imagen se agranda */
+.benefit-card:hover .benefit-img {
+  transform: scale(1.15);
+}
+
+.benefit-card-title {
+  color: #002B6D;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.benefit-list {
+  text-align: left;
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.benefit-list li {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+.benefit-list i {
+  color: #0043CE;
+  margin-right: 8px;
+  margin-top: 2px;
+}

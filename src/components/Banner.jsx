@@ -1,61 +1,136 @@
 import { useState, useEffect } from 'react';
+import { trackBannerImpression, trackBannerCTA } from '../utils/gtm';
+import './Banner.css';
+
+/**
+ * COMPONENTE: Banner A/B Test
+ * 
+ * HIPÓTESIS DEL EXPERIMENTO:
+ * "Modificar el color y mensaje del CTA aumenta el CTR hacia el formulario"
+ * 
+ * VARIANTE A (50%):
+ *   - Color: Azul corporativo BCP (#0043CE)
+ *   - CTA: "Solicita ahora"
+ *   - Psicología: Confianza, formalidad, autoridad
+ * 
+ * VARIANTE B (50%):
+ *   - Color: Naranja vibrante (#FF7A00)
+ *   - CTA: "Aplica ya"
+ *   - Psicología: Urgencia, dinamismo, acción
+ * 
+ * MÉTRICA PRINCIPAL: CTR (Click-Through Rate)
+ * Fórmula: (clicks en CTA / impressiones del banner) × 100
+ */
+
+const BANNER_VARIANTS = {
+  A: {
+    bgColor: '#0043CE',
+    ctaText: 'Solicita ahora',
+    description: 'Variante azul - confianza corporativa',
+    ariaLabel: 'Solicitar tarjeta de crédito BCP ahora'
+  },
+  B: {
+    bgColor: '#FF7A00',
+    ctaText: 'Aplica ya',
+    description: 'Variante naranja - urgencia de acción',
+    ariaLabel: 'Aplicar para tarjeta de crédito BCP ya'
+  }
+};
+
+/**
+ * Asigna variante aleatoria (50/50) y la persiste en la sesión
+ * @returns {string} 'A' o 'B'
+ */
+const assignVariant = () => {
+  // Verificar si ya existe asignación en sesión
+  const stored = sessionStorage.getItem('bcp_ab_variant');
+  if (stored && BANNER_VARIANTS[stored]) {
+    return stored;
+  }
+
+  // Asignar nueva variante de forma aleatoria
+  const newVariant = Math.random() < 0.5 ? 'A' : 'B';
+  
+  // Persistir en sessionStorage (dura toda la sesión del usuario)
+  sessionStorage.setItem('bcp_ab_variant', newVariant);
+  
+  return newVariant;
+};
 
 export default function Banner() {
   const [variant, setVariant] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Ciclo de vida: Asigna variante e envia evento de impresión
+   */
   useEffect(() => {
-    const randomChoice = Math.random() < 0.5 ? 'A' : 'B';
-    setVariant(randomChoice);
+    const assignedVariant = assignVariant();
+    setVariant(assignedVariant);
+    setIsLoading(false);
+
+    // Trackear que el usuario vio esta variante
+    // ✅ EVENTO 1: banner_impression
+    trackBannerImpression(assignedVariant);
   }, []);
 
-  if (!variant) return null;
-
-  const isVariantA = variant === 'A';
-  const bgColor = isVariantA ? '#0043CE' : '#FF7A00';
-  const ctaText = isVariantA ? 'Solicita ahora' : 'Aplica ya';
-
-  // Función que captura el evento para GTM
+  /**
+   * Handler: Usuario hace click en CTA
+   * Scrollea a formulario + envia evento a GTM
+   */
   const handleCTAClick = () => {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'experiment_event',
-      experimentId: 'bcp_banner_test_v1',
-      action: 'click_cta',
-      variant: variant,
-      label: ctaText
-    });
-    
-    console.log("Evento enviado al dataLayer:", window.dataLayer);
+    // ✅ EVENTO 2: click_cta
+    trackBannerCTA(variant, BANNER_VARIANTS[variant].ctaText);
+
+    // Scroll suave hacia formulario
+    const formElement = document.getElementById('solicitar');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
+  // Fallback mientras carga
+  if (isLoading || !variant) return null;
+
+  const config = BANNER_VARIANTS[variant];
+
   return (
-    <section 
-      style={{ 
-        backgroundColor: bgColor, 
-        padding: '60px 20px', 
-        color: '#ffffff',
-        textAlign: 'center' 
-      }}
+    <section
+      className="banner"
+      style={{ backgroundColor: config.bgColor }}
+      role="banner"
+      aria-label={`Banner principal - ${config.description}`}
     >
-      <h2>Tu nueva Tarjeta de Crédito BCP te espera</h2>
-      <p>Estás visualizando la variante de prueba: {variant}</p>
-      
-      <button 
-        onClick={handleCTAClick}
-        style={{
-          padding: '12px 24px',
-          fontSize: '18px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          marginTop: '15px',
-          border: 'none',
-          borderRadius: '4px',
-          backgroundColor: '#ffffff',
-          color: bgColor
-        }}
-      >
-        {ctaText}
-      </button>
+      <div className="banner-content">
+        <h2 className="banner-title">
+          Tu nueva Tarjeta de Crédito BCP te espera
+        </h2>
+
+        {/* Badge de variante - solo visible en desarrollo */}
+        {process.env.NODE_ENV === 'development' && (
+          <p className="banner-variant-badge">
+            🧪 Test: Variante {variant} ({config.description})
+          </p>
+        )}
+
+        <p className="banner-subtitle">
+          Acceso inmediato, beneficios exclusivos y experiencia digital premium
+        </p>
+
+        <button
+          className="banner-cta"
+          onClick={handleCTAClick}
+          aria-label={config.ariaLabel}
+          style={{ backgroundColor: '#ffffff', color: config.bgColor }}
+        >
+          {config.ctaText}
+        </button>
+      </div>
+
+      {/* Indicador visual de variante para QA - remove en producción */}
+      <div className="banner-qa-indicator">
+        Variante: {variant}
+      </div>
     </section>
   );
 }

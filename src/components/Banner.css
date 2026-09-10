@@ -1,0 +1,234 @@
+/**
+ * Banner.module.css
+ * Estilos para el componente Banner A/B Test
+ * 
+ * Principios:
+ * - Mobile-first responsive design
+ * - Variables CSS para mantenibilidad
+ * - Accesibilidad (contrast ratios, focus states)
+ */
+
+:root {
+  --banner-padding-desktop: 60px 40px;
+  --banner-padding-mobile: 40px 20px;
+  --cta-padding: 14px 32px;
+  --transition-speed: 0.3s ease-in-out;
+  --color-white: #ffffff;
+  --color-text: #ffffff;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.banner {
+  position: relative;
+  padding: var(--banner-padding-mobile);
+  text-align: center;
+  color: var(--color-text);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: background-color var(--transition-speed);
+
+  /* Efecto de profundidad sutil */
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Desktop: mayor padding */
+@media (min-width: 768px) {
+  .banner {
+    padding: var(--banner-padding-desktop);
+    min-height: 500px;
+  }
+}
+
+.banner-content {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.banner-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+@media (min-width: 768px) {
+  .banner-title {
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-title {
+    font-size: 1.6rem;
+  }
+}
+
+.banner-subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0 0 30px 0;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .banner-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+}
+
+/**
+ * Call-To-Action Button
+ * Estilos para máxima usabilidad
+ */
+.banner-cta {
+  padding: var(--cta-padding);
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  box-shadow: var(--shadow-md);
+  margin-top: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  /* Accesibilidad */
+  font-family: inherit;
+  line-height: 1.5;
+  min-height: 48px; /* Touch target mínimo */
+}
+
+.banner-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.banner-cta:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.banner-cta:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Evita texto seleccionable en el botón */
+.banner-cta {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Responsive: botón más pequeño en móvil */
+@media (max-width: 480px) {
+  .banner-cta {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+/**
+ * Badge de variante
+ * Solo visible en desarrollo para QA
+ */
+.banner-variant-badge {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 15px;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+/**
+ * QA Indicator
+ * Etiqueta en esquina para verificar variante durante testing
+ * Remove en producción
+ */
+.banner-qa-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--color-white);
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 3px;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+/* Hide en producción */
+@media (min-width: 1200px) {
+  .banner-qa-indicator {
+    display: none;
+  }
+}
+
+/**
+ * Accessibility: High Contrast Mode
+ */
+@media (prefers-contrast: more) {
+  .banner-title {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .banner-cta {
+    outline: 2px solid currentColor;
+    outline-offset: 1px;
+  }
+}
+
+/**
+ * Reduced Motion
+ * Respeta preferencias de movimiento reducido
+ */
+@media (prefers-reduced-motion: reduce) {
+  .banner-content {
+    animation: none;
+  }
+
+  .banner-cta {
+    transition: none;
+  }
+
+  .banner-cta:hover {
+    transform: none;
+  }
+}
+
+/**
+ * Dark Mode Support (futuro)
+ */
+@media (prefers-color-scheme: dark) {
+  .banner-variant-badge {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
