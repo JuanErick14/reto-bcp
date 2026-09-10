@@ -18,7 +18,7 @@
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
-  flex-wrap: wrap; /* En móviles se apilan naturalmente */
+  flex-wrap: wrap; 
 }
 
 /* Fuerza una sola línea en pantallas de escritorio */
@@ -38,7 +38,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Transición solo para la sombra y el borde */
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -52,12 +51,11 @@
   height: 100px;
   object-fit: contain;
   margin-bottom: 20px;
-  /* Preparamos la imagen para moverse suavemente */
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
-/* Cuando el cursor toca la tarjeta, SOLO la imagen se agranda */
+/* Cuando el cursor toca la tarjeta */
 .benefit-card:hover .benefit-img {
   transform: scale(1.15);
 }

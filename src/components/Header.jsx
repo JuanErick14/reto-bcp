@@ -1,3 +1,5 @@
+import logoBCP from '../../public/img/bcp-logo.png';
+
 export default function Header() {
   return (
     <header style={{ width: '100%', fontFamily: 'Roboto, sans-serif', backgroundColor: '#ffffff' }}>
@@ -13,7 +15,7 @@ export default function Header() {
         
         {/* 1. Logo alineado a la izquierda */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-          <img src={`${import.meta.env.BASE_URL}img/bcp-logo.png`} alt="Logo BCP" style={{ height: '35px' }} />
+          <img src={logoBCP} alt="Logo BCP" style={{ height: '35px' }} />
         </div>
 
         {/* 2. Navegación perfectamente centrada */}

@@ -3,22 +3,12 @@ import { trackBannerImpression, trackBannerCTA } from '../utils/gtm';
 import './Banner.css';
 
 /**
- * COMPONENTE: Banner A/B Test
+ * COMPONENTE: Banner A/B Testing
  * 
  * HIPÓTESIS DEL EXPERIMENTO:
  * "Modificar el color y mensaje del CTA aumenta el CTR hacia el formulario"
- * 
- * VARIANTE A (50%):
- *   - Color: Azul corporativo BCP (#0043CE)
- *   - CTA: "Solicita ahora"
- *   - Psicología: Confianza, formalidad, autoridad
- * 
- * VARIANTE B (50%):
- *   - Color: Naranja vibrante (#FF7A00)
- *   - CTA: "Aplica ya"
- *   - Psicología: Urgencia, dinamismo, acción
- * 
- * MÉTRICA PRINCIPAL: CTR (Click-Through Rate)
+ *
+ * MÉTRICA PRINCIPAL: CTR
  * Fórmula: (clicks en CTA / impressiones del banner) × 100
  */
 
@@ -70,16 +60,15 @@ export default function Banner() {
     setIsLoading(false);
 
     // Trackear que el usuario vio esta variante
-    // ✅ EVENTO 1: banner_impression
+    // EVENTO 1: banner_impression
     trackBannerImpression(assignedVariant);
   }, []);
 
   /**
-   * Handler: Usuario hace click en CTA
    * Scrollea a formulario + envia evento a GTM
    */
   const handleCTAClick = () => {
-    // ✅ EVENTO 2: click_cta
+    // EVENTO 2: click_cta
     trackBannerCTA(variant, BANNER_VARIANTS[variant].ctaText);
 
     // Scroll suave hacia formulario
@@ -106,7 +95,7 @@ export default function Banner() {
           Tu nueva Tarjeta de Crédito BCP te espera
         </h2>
 
-        {/* Badge de variante - solo visible en desarrollo */}
+        {/* Badge de variante */}
         {process.env.NODE_ENV === 'development' && (
           <p className="banner-variant-badge">
             🧪 Test: Variante {variant} ({config.description})
@@ -127,7 +116,7 @@ export default function Banner() {
         </button>
       </div>
 
-      {/* Indicador visual de variante para QA - remove en producción */}
+      {/* Indicador visual de variante para QA */}
       <div className="banner-qa-indicator">
         Variante: {variant}
       </div>

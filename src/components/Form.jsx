@@ -3,18 +3,7 @@ import { trackFormView, trackFormSubmit } from '../utils/gtm';
 import './Form.css';
 
 /**
- * COMPONENTE: Formulario de Solicitud - Estilo BCP
- * 
- * Responsabilidades:
- * 1. Capturar datos básicos (nombre, email)
- * 2. Validar información en tiempo real
- * 3. Trackear evento de conversión (form_submit)
- * 4. Mostrar confirmación con animación
- * 5. Aceptar términos y condiciones
- * 
- * Tracking:
- * - form_view: cuando usuario scrollea a esta sección
- * - form_submit: cuando completa el formulario
+ * Formulario de Solicitud - Estilo BCP
  */
 
 const FORM_CONFIG = {
@@ -50,7 +39,7 @@ export default function Form() {
   const [variant, setVariant] = useState('');
 
   /**
-   * Lifecycle: Obtén variante e inicia tracking
+   * Obtén variante e inicia tracking
    */
   useEffect(() => {
     const currentVariant = sessionStorage.getItem('bcp_ab_variant') || 'unknown';
@@ -102,7 +91,7 @@ export default function Form() {
   };
 
   /**
-   * Blur: marca como tocado y valida
+   * Marca como tocado y valida
    */
   const handleBlur = (e) => {
     const { name } = e.target;
@@ -120,7 +109,7 @@ export default function Form() {
   };
 
   /**
-   * Change: actualiza valor y limpia error
+   * Actualiza valor y limpia error
    */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
