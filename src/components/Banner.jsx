@@ -95,10 +95,10 @@ export default function Banner() {
           Tu nueva Tarjeta de Crédito BCP te espera
         </h2>
 
-        {/* Badge de variante */}
-        {process.env.NODE_ENV === 'development' && (
+        {/* Badge visible solo en localhost */}
+        {window.location.hostname === 'localhost' && (
           <p className="banner-variant-badge">
-            🧪 Test: Variante {variant} ({config.description})
+            Test: Variante {variant} ({config.description})
           </p>
         )}
 
@@ -114,11 +114,6 @@ export default function Banner() {
         >
           {config.ctaText}
         </button>
-      </div>
-
-      {/* Indicador visual de variante para QA */}
-      <div className="banner-qa-indicator">
-        Variante: {variant}
       </div>
     </section>
   );
